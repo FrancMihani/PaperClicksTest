@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import SignedInLayout from '@/layouts/SignedInLayout.vue'
+import UserIndex from '@/views/users/UserIndex.vue'
 </script>
 
 <template>
-  <header>
-  </header>
-
-  <main>
-  </main>
+  <SignedInLayout>
+    <UserIndex />
+  </SignedInLayout>
 </template>
