@@ -2,6 +2,6 @@ export type UserPayload = {
 
 }
 
-export type UserResponse = {
+export type UserDTO = {
 
 }
