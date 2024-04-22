@@ -1,4 +1,4 @@
-import axios, { type AxiosResponse } from 'axios'
+import { type AxiosResponse } from 'axios'
 import { onMounted, ref, watch } from 'vue'
 
 type Service<T> = (id: string) => Promise<AxiosResponse<T, any>>
