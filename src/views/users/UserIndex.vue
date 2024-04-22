@@ -7,15 +7,19 @@ import type { UserDTO } from "@/services/users/types"
 
 const { items } = useIndexQuery(UsersService.all)
 const toast = useToast()
-const headers: Array<{ label: string; key: keyof UserDTO }> = [
+const headers: Array<Header<UserDTO>> = [
   { label: 'ID', key: 'id' },
   { label: 'Name', key: 'name' },
   { label: 'Email', key: 'email' },
   { label: 'Phone', key: 'phone' },
-  { label: 'Actions', key: 'id' },
+  { label: 'Actions', key: 'actions' },
 ]
 </script>
 
 <template>
-  <SimpleTable :headers="headers" :items="items" />
+  <simple-table :headers="headers" :items="items">
+    <template v-slot:actions="{ item }">
+      {{ item }}
+    </template>
+  </simple-table>
 </template>

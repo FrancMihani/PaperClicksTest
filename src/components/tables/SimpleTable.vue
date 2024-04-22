@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T extends Record<string, unknown>">
 const props = defineProps({
   headers: {
-    type: Array as () => Array<{ label: string; key: keyof T }>,
+    type: Array as () => Array<Header<T>>,
     required: true,
   },
   items: {
@@ -34,7 +34,9 @@ const props = defineProps({
         :key="index + subIndex"
         class="py-3 text-[#4E5964]"
       >
-        {{ item[header.key] }}
+        <slot :name="header.key" v-bind:item="item">
+          {{ header.key && item[header.key] }}
+        </slot>
       </td>
     </tr>
     </tbody>
