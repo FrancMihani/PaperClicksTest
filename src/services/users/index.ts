@@ -1,9 +1,9 @@
 import apiClient from '@/clients/apiClient'
-import type { UserPayload } from '@/services/users/types'
+import type { UserDTO, UserPayload } from '@/services/users/types'
 
 const UsersService = {
-  all: () => apiClient().get<Array<unknown>>('users'),
-  find: (id: string) => apiClient().get<unknown>(`users/${id}`),
+  all: () => apiClient().get<Array<UserDTO>>('users'),
+  find: (id: string) => apiClient().get<UserDTO>(`users/${id}`),
   create: (payload: UserPayload) => apiClient().post('users', payload),
   update: (payload: UserPayload, id: string) => apiClient().put(`users/${id}`, payload),
   delete: (id: string) => apiClient().delete(`users/${id}`),
