@@ -22,11 +22,11 @@ const useMutation = <TPayload>(service: Service<TPayload>, options: Options = {}
       const { data } = options?.id ? await service(payload, options?.id) : await service(payload)
       if (data) {
         if (options.onSuccess) options.onSuccess()
-        if (!options?.withoutToast) toast.success(data?.data)
+        if (!options?.withoutToast) toast.success('Success')
       }
     } catch (error) {
       if (options.onError) options.onError()
-      if (!options?.withoutToast) toast.error(error?.response?.data)
+      if (!options?.withoutToast) toast.error(error)
     } finally {
       if (options.onSettled) options.onSettled()
     }

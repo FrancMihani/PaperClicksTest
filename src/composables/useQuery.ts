@@ -11,7 +11,7 @@ type Options = {
   fetchOnMounted?: boolean
 }
 const useQuery = <T>(serviceMethod: Service<T>, options: Options) => {
-  const item = ref({})
+  const item = ref<T>()
   const loading = ref(false)
 
   const fetch = async () => {
