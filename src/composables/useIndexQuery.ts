@@ -1,5 +1,5 @@
-import { type AxiosRequestConfig, type AxiosResponse } from 'axios'
-import { onMounted, ref } from 'vue'
+import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { onMounted, type Ref, ref } from 'vue'
 
 type Service<T> = (config?: AxiosRequestConfig) => Promise<AxiosResponse<Array<T>>>
 
@@ -10,14 +10,14 @@ type Options = {
   onSettled?: () => void
 }
 const useIndexQuery = <T>(serviceMethod: Service<T>, options: Options = {}) => {
-  const items = ref<Array<T>>()
+  const items = ref<Array<T>>([]) as Ref<Array<T>>
   const loading = ref(false)
 
   const fetch = async () => {
     loading.value = true
     try {
       const { data } = await serviceMethod(options.config || {}) as AxiosResponse<Array<T>>
-      if (data) items.value = data
+      if (data) items.value = data || []
       if (options.onSuccess) options.onSuccess()
     } catch (err) {
       if (options.onError) options.onError()
