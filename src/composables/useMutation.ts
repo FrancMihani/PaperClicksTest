@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { type AxiosResponse } from 'axios'
 
-type Service<TPayload> = (payload: TPayload, id?: string) => Promise<AxiosResponse<unknown, any>>
+type Service<TPayload> = (payload: TPayload, id?: string) => Promise<AxiosResponse<TPayload, any>>
 
 type Options = {
   id?: string
@@ -12,7 +12,7 @@ type Options = {
   onSettled?: () => void
 }
 
-const useMutation = <TPayload>(service: Service<TPayload>, options: Options = {}) => {
+const useMutation = <TPayload>(service: Service<TPayload>, options: Options) => {
   const loading = ref(false)
   const toast = useToast()
 
