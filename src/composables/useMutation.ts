@@ -5,7 +5,6 @@ import { type AxiosResponse } from 'axios'
 type Service<TPayload> = (payload: TPayload, id?: string) => Promise<AxiosResponse<TPayload, any>>
 
 type Options = {
-  id?: string
   withoutToast?: boolean
   onSuccess?: () => void
   onError?: () => void
@@ -16,10 +15,10 @@ const useMutation = <TPayload>(service: Service<TPayload>, options: Options) => 
   const loading = ref(false)
   const toast = useToast()
 
-  const mutate = async (payload: TPayload) => {
+  const mutate = async (payload: TPayload, id?: string) => {
     loading.value = true
     try {
-      const { data } = options?.id ? await service(payload, options?.id) : await service(payload)
+      const { data } = id ? await service(payload, id) : await service(payload)
       if (data) {
         if (options.onSuccess) options.onSuccess()
         if (!options?.withoutToast) toast.success('Success')

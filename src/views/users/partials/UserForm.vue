@@ -5,7 +5,7 @@ import UsersService from '@/services/users'
 import Dialog from '@/components/electrons/Dialog.vue'
 import { FormType } from '@/types/enums'
 import useMutation from '@/composables/useMutation'
-import { initialItem, type UserDTO } from '@/services/users/types'
+import { initialItem } from '@/services/users/types'
 import TextInput from '@/components/inputs/TextInput.vue'
 import SubmitButton from '@/components/buttons/form/SubmitButton.vue'
 import Checkbox from '@/components/inputs/Checkbox.vue'
@@ -28,8 +28,8 @@ const syncVisible = computed({
 })
 
 const close = () => {
-  syncVisible.value = true
-  item.value = {} as UserDTO
+  syncVisible.value = false
+  item.value = initialItem
 }
 
 watch(
@@ -63,7 +63,7 @@ const { mutate: update, loading: isUpdating } = useMutation(UsersService.update,
       </div>
     </template>
     <template v-slot:footer>
-      <submit-button class="ml-auto" />
+      <submit-button class="ml-auto" @click="isCreateMode ? create(item) : update(item, props.id)" />
     </template>
   </Dialog>
 </template>
