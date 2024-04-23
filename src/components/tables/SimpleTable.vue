@@ -14,31 +14,20 @@ const props = defineProps({
 <template>
   <table class="w-[100%] text-left">
     <thead>
-    <tr>
-      <th
-        v-for="(header, index) in headers"
-        :key="index"
-        class="py-4 text-[#4E5964] pl-[10px]"
-      >
-        {{ header.label }}
-      </th>
-    </tr>
+      <tr>
+        <th v-for="(header, index) in headers" :key="index" class="py-4 text-[#4E5964] pl-[10px]">
+          {{ header.label }}
+        </th>
+      </tr>
     </thead>
     <tbody>
-    <tr
-      v-for="(item, index) in items"
-      :key="index"
-    >
-      <td
-        v-for="(header, subIndex) in headers"
-        :key="index + subIndex"
-        class="py-3 text-[#4E5964]"
-      >
-        <slot :name="header.key" v-bind:item="item">
-          {{ header.key && item[header.key] }}
-        </slot>
-      </td>
-    </tr>
+      <tr v-for="(item, index) in items" :key="index">
+        <td v-for="(header, subIndex) in headers" :key="index + subIndex" class="py-3 text-[#4E5964]">
+          <slot :name="header.key" v-bind:item="item">
+            {{ header.key && item[header.key] }}
+          </slot>
+        </td>
+      </tr>
     </tbody>
   </table>
 </template>
@@ -50,7 +39,7 @@ table {
   margin-top: -10px;
 }
 td {
-  border: solid 1px #E7EAF3;
+  border: solid 1px #e7eaf3;
   border-style: solid none;
   padding: 10px;
 }

@@ -8,7 +8,7 @@ const options: PluginOptions = {
 }
 
 export default {
-  install: (app) => {
+  install: app => {
     app.use(Toast, options)
-  }
+  },
 } as Plugin

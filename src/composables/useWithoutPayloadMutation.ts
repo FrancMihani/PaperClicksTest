@@ -16,7 +16,7 @@ const useWithoutPayloadMutation = <TPayload>(service: Service, options: Options)
   const loading = ref(false)
   const toast = useToast()
 
-  const mutate =  async () => {
+  const mutate = async () => {
     loading.value = true
     try {
       const { data } = await service(options?.id)

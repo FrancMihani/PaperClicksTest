@@ -16,7 +16,7 @@ const useIndexQuery = <T>(serviceMethod: Service<T>, options: Options = {}) => {
   const fetch = async () => {
     loading.value = true
     try {
-      const { data } = await serviceMethod(options.config || {}) as AxiosResponse<Array<T>>
+      const { data } = (await serviceMethod(options.config || {})) as AxiosResponse<Array<T>>
       if (data) items.value = data || []
       if (options.onSuccess) options.onSuccess()
     } catch (err) {

@@ -1,7 +1,7 @@
 declare type Maybe<T> = null | undefined | T
 
 declare type Header<TData> = {
-  label: string;
+  label: string
   key: keyof TData | 'actions'
 }
 

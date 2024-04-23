@@ -16,7 +16,7 @@ const useMutation = <TPayload>(service: Service<TPayload>, options: Options) => 
   const loading = ref(false)
   const toast = useToast()
 
-  const mutate =  async (payload: TPayload) => {
+  const mutate = async (payload: TPayload) => {
     loading.value = true
     try {
       const { data } = options?.id ? await service(payload, options?.id) : await service(payload)

@@ -32,9 +32,13 @@ const useQuery = <T>(serviceMethod: Service<T>, options: Options) => {
     if (options.fetchOnMounted) fetch()
   })
 
-  watch([options.id], () => {
-    if (options.id) fetch()
-  }, { deep: true })
+  watch(
+    [options.id],
+    () => {
+      if (options.id) fetch()
+    },
+    { deep: true },
+  )
 
   return { fetch, loading, item }
 }

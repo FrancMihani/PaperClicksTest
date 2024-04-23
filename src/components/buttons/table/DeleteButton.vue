@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TrashCanIcon from "@/components/icons/TrashCanIcon.vue"
+import TrashCanIcon from '@/components/icons/TrashCanIcon.vue'
 </script>
 
 <template>
