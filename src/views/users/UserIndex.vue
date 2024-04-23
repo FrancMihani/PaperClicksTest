@@ -8,7 +8,7 @@ import DeleteButton from '@/components/buttons/table/DeleteButton.vue'
 import CreateButton from '@/components/buttons/table/CreateButton.vue'
 import type { UserDTO } from '@/services/users/types'
 import UserForm from '@/views/users/partials/UserForm.vue'
-import {FormType} from "@/types/enums";
+import { FormType } from '@/types/enums'
 
 const { items } = useIndexQuery(UsersService.all)
 
@@ -22,10 +22,12 @@ const headers: Array<Header<UserDTO>> = [
 
 const isCreateFormVisible = ref(false)
 const isEditFormVisible = ref(false)
-const openEditModal = (item: UserDTO) => {
+const selectedId = ref('')
+const openEditModal = (id: string) => {
+  selectedId.value = id
   isEditFormVisible.value = true
 }
-const handleDelete = (item: UserDTO) => {}
+const handleDelete = (id: string) => {}
 </script>
 
 <template>
@@ -33,11 +35,11 @@ const handleDelete = (item: UserDTO) => {}
   <simple-table :headers="headers" :items="items">
     <template v-slot:actions="{ item }">
       <div class="flex flex-row">
-        <edit-button class="mr-4" @click="openEditModal(item)" />
-        <delete-button @click="handleDelete(item)" />
+        <edit-button class="mr-4" @click="openEditModal(`${item.id}`)" />
+        <delete-button @click="handleDelete(`${item.id}`)" />
       </div>
     </template>
   </simple-table>
   <UserForm v-model:visible="isCreateFormVisible" />
-  <UserForm v-model:visible="isEditFormVisible" :type="FormType.Edit" />
+  <UserForm v-model:visible="isEditFormVisible" :type="FormType.Edit" :id="selectedId" />
 </template>

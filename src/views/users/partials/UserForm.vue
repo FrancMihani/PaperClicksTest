@@ -8,7 +8,7 @@ import { FormType } from '@/types/enums'
 const props = defineProps({
   id: { type: String, default: '' },
   visible: Boolean,
-  type: { type: String as ()=> FormType, default: FormType.Create },
+  type: { type: String as () => FormType, default: FormType.Create },
 })
 const emit = defineEmits(['update:visible'])
 
