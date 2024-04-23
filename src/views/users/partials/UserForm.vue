@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import useQuery from '@/composables/useQuery'
 import UsersService from '@/services/users'
 import Dialog from '@/components/electrons/Dialog.vue'
@@ -8,6 +8,7 @@ import useMutation from '@/composables/useMutation'
 import { initialItem, type UserDTO } from '@/services/users/types'
 import TextInput from '@/components/inputs/TextInput.vue'
 import SubmitButton from '@/components/buttons/form/SubmitButton.vue'
+import Checkbox from '@/components/inputs/Checkbox.vue'
 
 const props = defineProps({
   id: { type: String, default: '' },
@@ -17,6 +18,7 @@ const props = defineProps({
 const emit = defineEmits(['update:visible'])
 
 const isCreateMode = computed(() => props.type === FormType.Create)
+const isUsingGoogleLocation = ref<boolean>(false)
 
 const { item, fetch, loading: isFetching } = useQuery(UsersService.find, { id: props.id, initialItem })
 
@@ -38,21 +40,24 @@ const { mutate: update, loading: isUpdating } = useMutation(UsersService.update,
   <Dialog :title="`${isCreateMode ? 'New' : props.id} User Info`" v-model="syncVisible">
     <template v-slot:body>
       <div class="grid grid-cols-2 gap-4">
-        <TextInput v-model="item.name" label="Full Name" />
-        <TextInput v-model="item.address.street" label="Address" />
-        <TextInput v-model="item.username" label="User Name" />
-        <TextInput v-model="item.address.city" label="City" />
-        <TextInput v-model="item.email" label="Email" />
-        <TextInput v-model="item.address.zipcode" label="Zip Code" />
-        <TextInput v-model="item.phone" label="Phone Nr" />
-        <div class="grid grid-cols-2 gap-4">
-          <TextInput v-model="item.address.geo.lat" label="Latitude" />
-          <TextInput v-model="item.address.geo.lng" label="Longitude" />
+        <text-input v-model="item.name" label="Full Name" />
+        <div>
+          <checkbox class="absolute right-5" v-model="isUsingGoogleLocation" label="Use Google Location" />
+          <text-input v-model="item.address.street" label="Address" />
+        </div>
+        <text-input v-model="item.username" label="User Name" />
+        <text-input v-model="item.address.city" label="City" />
+        <text-input v-model="item.email" label="Email" />
+        <text-input v-model="item.address.zipcode" label="Zip Code" />
+        <text-input v-model="item.phone" label="Phone Nr" />
+        <div v-if="isUsingGoogleLocation" class="grid grid-cols-2 gap-4">
+          <text-input v-model="item.address.geo.lat" label="Latitude" />
+          <text-input v-model="item.address.geo.lng" label="Longitude" />
         </div>
       </div>
     </template>
     <template v-slot:footer>
-      <SubmitButton class="ml-auto" />
+      <submit-button class="ml-auto" />
     </template>
   </Dialog>
 </template>
