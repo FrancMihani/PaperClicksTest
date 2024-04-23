@@ -3,5 +3,7 @@ import TrashCanIcon from '@/components/icons/TrashCanIcon.vue'
 </script>
 
 <template>
-  <TrashCanIcon class="pointer-events-auto" v-bind="{ ...$attrs }" />
+  <button v-bind="{ ...$attrs }">
+    <TrashCanIcon />
+  </button>
 </template>

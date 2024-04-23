@@ -29,8 +29,8 @@ const close = () => (syncValue.value = false)
         v-show="syncValue">
         <div @click="close" class="modal-backdrop fixed inset-0 bg-[#1114095c]" />
         <div
-          class="modal-content w-full max-h-[800px] relative overflow-auto scrollbar-sm rounded-xl bg-white text-center shadow-[#f2f23005] shadow-xl"
-          :class="width ? width : 'max-w-lg'">
+          class="modal-content w-full max-h-[800px] relative overflow-auto scrollbar-sm rounded-xl bg-white shadow-[#f2f23005] shadow-xl"
+          :class="width ? width : 'max-w-[800px]'">
           <header class="sticky top-0 z-[1000]">
             <div class="mx-4 sm:mx-5">
               <div class="flex pt-6">
@@ -47,14 +47,14 @@ const close = () => (syncValue.value = false)
             </div>
             <div class="my-4 h-px bg-slate-200" />
           </header>
-          <form class="px-4 sm:px-5">
+          <div class="px-4 sm:px-5">
             <section class="pt-3">
               <slot name="body"></slot>
             </section>
-            <footer class="footer">
+            <footer class="py-5">
               <slot name="footer"></slot>
             </footer>
-          </form>
+          </div>
         </div>
       </div>
     </Transition>

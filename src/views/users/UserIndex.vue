@@ -42,5 +42,5 @@ const openEditModal = (id: string) => {
     </template>
   </simple-table>
   <UserForm v-model:visible="isCreateFormVisible" />
-  <UserForm v-model:visible="isEditFormVisible" :type="FormType.Edit" :id="selectedId" />
+  <UserForm v-model:visible="isEditFormVisible" :type="FormType.Update" :id="selectedId" />
 </template>

@@ -29,3 +29,27 @@ export interface Company {
   catchPhrase: string
   bs: string
 }
+
+export const initialItem = {
+  id: NaN,
+  name: '',
+  username: '',
+  email: '',
+  address: {
+    street: '',
+    suite: '',
+    city: '',
+    zipcode: '',
+    geo: {
+      lat: '',
+      lng: '',
+    },
+  },
+  phone: '',
+  website: '',
+  company: {
+    name: '',
+    catchPhrase: '',
+    bs: '',
+  },
+}

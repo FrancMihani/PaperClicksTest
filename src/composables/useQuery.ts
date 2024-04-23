@@ -1,17 +1,18 @@
 import { type AxiosResponse } from 'axios'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, type Ref, ref, watch } from 'vue'
 
 type Service<T> = (id: string) => Promise<AxiosResponse<T, any>>
 
-type Options = {
+type Options<T> = {
   id: string
   onSuccess?: () => void
   onError?: () => void
   onSettled?: () => void
   fetchOnMounted?: boolean
+  initialItem?: T
 }
-const useQuery = <T>(serviceMethod: Service<T>, options: Options) => {
-  const item = ref<T>()
+const useQuery = <T>(serviceMethod: Service<T>, options: Options<T>) => {
+  const item = ref<T>((options?.initialItem || {}) as T) as Ref<T>
   const loading = ref(false)
 
   const fetch = async () => {
