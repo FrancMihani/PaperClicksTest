@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import useIndexQuery from '@/composables/useIndexQuery'
+import useWithoutPayloadMutation from '@/composables/useWithoutPayloadMutation'
 import UsersService from '@/services/users'
 import SimpleTable from '@/components/tables/SimpleTable.vue'
 import EditButton from '@/components/buttons/table/EditButton.vue'
@@ -10,7 +11,8 @@ import type { UserDTO } from '@/services/users/types'
 import UserForm from '@/views/users/partials/UserForm.vue'
 import { FormType } from '@/types/enums'
 
-const { items } = useIndexQuery(UsersService.all)
+const { items, fetch } = useIndexQuery(UsersService.all)
+const { mutate: deleteUser } = useWithoutPayloadMutation(UsersService.delete, { onSuccess: fetch })
 
 const headers: Array<Header<UserDTO>> = [
   { label: 'ID', key: 'id' },
@@ -27,7 +29,6 @@ const openEditModal = (id: string) => {
   selectedId.value = id
   isEditFormVisible.value = true
 }
-const handleDelete = (id: string) => {}
 </script>
 
 <template>
@@ -36,7 +37,7 @@ const handleDelete = (id: string) => {}
     <template v-slot:actions="{ item }">
       <div class="flex flex-row">
         <edit-button class="mr-4" @click="openEditModal(`${item.id}`)" />
-        <delete-button @click="handleDelete(`${item.id}`)" />
+        <delete-button @click="deleteUser(`${item.id}`)" />
       </div>
     </template>
   </simple-table>
