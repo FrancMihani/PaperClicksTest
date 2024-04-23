@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import useQuery from '@/composables/useQuery'
 import UsersService from '@/services/users'
 import Dialog from '@/components/electrons/Dialog.vue'
@@ -20,7 +20,7 @@ const emit = defineEmits(['update:visible'])
 const isCreateMode = computed(() => props.type === FormType.Create)
 const isUsingGoogleLocation = ref<boolean>(false)
 
-const { item, fetch, loading: isFetching } = useQuery(UsersService.find, { id: props.id, initialItem })
+const { item, fetch, loading: isFetching } = useQuery(UsersService.find, { initialItem })
 
 const syncVisible = computed({
   get: () => props.visible,
@@ -31,6 +31,12 @@ const close = () => {
   syncVisible.value = true
   item.value = {} as UserDTO
 }
+
+watch(
+  () => props.id,
+  () => props.id && fetch(props.id),
+  { deep: true },
+)
 
 const { mutate: create, loading: isCreating } = useMutation(UsersService.create, { onSuccess: close })
 const { mutate: update, loading: isUpdating } = useMutation(UsersService.update, { onSuccess: close })

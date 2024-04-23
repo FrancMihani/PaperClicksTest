@@ -4,21 +4,19 @@ import { onMounted, type Ref, ref, watch } from 'vue'
 type Service<T> = (id: string) => Promise<AxiosResponse<T, any>>
 
 type Options<T> = {
-  id: string
   onSuccess?: () => void
   onError?: () => void
   onSettled?: () => void
-  fetchOnMounted?: boolean
   initialItem?: T
 }
 const useQuery = <T>(serviceMethod: Service<T>, options: Options<T>) => {
   const item = ref<T>((options?.initialItem || {}) as T) as Ref<T>
   const loading = ref(false)
 
-  const fetch = async () => {
+  const fetch = async (id: string) => {
     loading.value = true
     try {
-      const { data } = await serviceMethod(options.id)
+      const { data } = await serviceMethod(id)
       if (data) item.value = data
       if (options.onSuccess) options.onSuccess()
     } catch (err) {
@@ -28,18 +26,6 @@ const useQuery = <T>(serviceMethod: Service<T>, options: Options<T>) => {
       loading.value = false
     }
   }
-
-  onMounted(() => {
-    if (options.fetchOnMounted) fetch()
-  })
-
-  watch(
-    [options.id],
-    () => {
-      if (options.id) fetch()
-    },
-    { deep: true },
-  )
 
   return { fetch, loading, item }
 }
