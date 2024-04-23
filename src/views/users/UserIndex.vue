@@ -6,6 +6,7 @@ import SimpleTable from "@/components/tables/SimpleTable.vue"
 import type { UserDTO } from "@/services/users/types"
 import EditButton from "@/components/buttons/table/EditButton.vue";
 import DeleteButton from "@/components/buttons/table/DeleteButton.vue";
+import CreateButton from "@/components/buttons/table/CreateButton.vue";
 
 const { items } = useIndexQuery(UsersService.all)
 const toast = useToast()
@@ -21,10 +22,11 @@ const handleDelete = (item: UserDTO) => {}
 </script>
 
 <template>
+  <CreateButton class="ml-auto">Create New User</CreateButton>
   <simple-table :headers="headers" :items="items">
     <template v-slot:actions="{ item }">
       <div class="flex flex-row">
-        <edit-button class="mr-2" @click="openEditModal(item)" />
+        <edit-button class="mr-4" @click="openEditModal(item)" />
         <delete-button @click="handleDelete(item)" />
       </div>
     </template>
