@@ -11,6 +11,7 @@ import Checkbox from '@/components/inputs/Checkbox.vue'
 import { initialItem } from '@/services/users/types'
 import { FormType } from '@/types/enums'
 import UserSchema from '@/schema/UserSchema'
+import GooglePlacesAutocompleteInput from '@/components/atoms/GooglePlacesAutocompleteInput.vue'
 
 const props = defineProps({
   id: { type: String, default: '' },
@@ -61,7 +62,7 @@ const handleSubmit = async () => {
         <text-input v-model="item.name" label="Full Name" :error="v$.name.$error ? 'Field has Errors' : ''" />
         <div>
           <checkbox class="absolute right-5" v-model="isUsingGoogleLocation" label="Use Google Location" />
-          <text-input
+          <google-places-autocomplete-input
             v-model="item.address.street"
             label="Address"
             :error="v$.address.street.$error ? 'Field has Errors' : ''" />

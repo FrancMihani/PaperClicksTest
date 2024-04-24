@@ -31,11 +31,11 @@ const syncValue = computed({
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
       :class="{ 'border-red-600': !!error }" />
     <p v-if="error" class="mt-1 text-sm text-red-600">{{ error }}</p>
-    <div class="py-1 rounded-md shadow-xs" v-if="!loading">
+    <div class="py-1 rounded-md shadow-xs absolute" v-if="!loading">
       <a
-        v-for="(prediction, index) in item.data.predictions"
+        v-for="(prediction, index) in item?.data?.predictions"
         :key="index"
-        class="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+        class="w-auto block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out bg-gray-100 focus:outline-none focus:bg-gray-100"
         role="menuitem"
         @click="syncValue = prediction.description">
         {{ prediction.description }}
