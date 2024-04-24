@@ -3,8 +3,9 @@ import { computed } from 'vue'
 import useQuery from '@/composables/useQuery'
 import googlePlacesService from '@/services/googlePlaces'
 import debounce from 'lodash/debounce'
+import type { Prediction } from '@/types/googlePlaces'
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'selected'])
 const props = defineProps({
   error: String,
   modelValue: String,
@@ -20,6 +21,11 @@ const syncValue = computed({
     emit('update:modelValue', val)
   },
 })
+
+const handleSelect = (prediction: Prediction) => {
+  syncValue.value = prediction?.structured_formatting?.main_text
+  emit('selected', prediction)
+}
 </script>
 <template>
   <div>
@@ -37,8 +43,8 @@ const syncValue = computed({
         :key="index"
         class="w-auto block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out bg-gray-100 focus:outline-none focus:bg-gray-100"
         role="menuitem"
-        @click="syncValue = prediction.description">
-        {{ prediction.description }}
+        @click="">
+        {{ prediction?.structured_formatting?.main_text }}
       </a>
     </div>
   </div>
