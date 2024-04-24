@@ -14,7 +14,10 @@ const syncValue = computed({
   get: () => props.modelValue,
   set: val => emit('update:modelValue', val),
 })
-const close = () => (syncValue.value = false)
+const close = () => {
+  syncValue.value = false
+  emit('close')
+}
 </script>
 
 <template>
