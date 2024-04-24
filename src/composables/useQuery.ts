@@ -1,5 +1,5 @@
 import { type AxiosResponse } from 'axios'
-import { onMounted, type Ref, ref, watch } from 'vue'
+import { type Ref, ref } from 'vue'
 
 type Service<T> = (id: string) => Promise<AxiosResponse<T, any>>
 
@@ -9,7 +9,7 @@ type Options<T> = {
   onSettled?: () => void
   initialItem?: T
 }
-const useQuery = <T>(serviceMethod: Service<T>, options: Options<T>) => {
+const useQuery = <T>(serviceMethod: Service<T>, options?: Options<T>) => {
   const item = ref<T>((options?.initialItem || {}) as T) as Ref<T>
   const loading = ref(false)
 
@@ -18,11 +18,11 @@ const useQuery = <T>(serviceMethod: Service<T>, options: Options<T>) => {
     try {
       const { data } = await serviceMethod(id)
       if (data) item.value = data
-      if (options.onSuccess) options.onSuccess()
+      if (options?.onSuccess) options.onSuccess()
     } catch (err) {
-      if (options.onError) options.onError()
+      if (options?.onError) options.onError()
     } finally {
-      if (options.onSettled) options.onSettled()
+      if (options?.onSettled) options.onSettled()
       loading.value = false
     }
   }
